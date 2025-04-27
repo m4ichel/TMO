@@ -53,7 +53,7 @@ Por fim, será apresentado também o planejamento para futuras melhorias, a fim 
   <sub>FIGURA 1 - Persona </sub><br>
   <img src= "../assets/persona.png" width="100%"
   alt="Persona"><br>
-  <sup>Fonte: Material produzido pelo autor, 2025</sup>
+  <sup>Fonte: Material produzido pelo autor, imagem de perfil feita usando https://picrew.me/en/image_maker/2435758, 2025</sup>
 </div>
 
 ### 2.2. User Stories
