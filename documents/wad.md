@@ -84,9 +84,9 @@ The user story above is:
 
 ### 3.1. Modelagem do banco de dados  (Semana 3)
 
-*Posicione aqui os diagramas de modelos relacionais do seu banco de dados, apresentando todos os esquemas de tabelas e suas relações. Utilize texto para complementar suas explicações, se necessário.*
+<!-- *Posicione aqui os diagramas de modelos relacionais do seu banco de dados, apresentando todos os esquemas de tabelas e suas relações. Utilize texto para complementar suas explicações, se necessário.*
 
-*Posicione também o modelo físico com o Schema do BD (arquivo .sql)*
+*Posicione também o modelo físico com o Schema do BD (arquivo .sql)* -->
 
 <div align="center">
   <sub>FIGURE 2 - Relational database model </sub><br>
@@ -217,7 +217,55 @@ element_types   1 ────<   elements
 
 ### 3.3. Wireframes
 
-*Posicione aqui as imagens do wireframe construído para sua solução e, opcionalmente, o link para acesso (mantenha o link sempre público para visualização).*
+<!-- *Posicione aqui as imagens do wireframe construído para sua solução e, opcionalmente, o link para acesso (mantenha o link sempre público para visualização).* -->
+
+Below are the wireframes created for the **TMO – Task Matrix Organizer** application. These visual ideas reflect the core screens and user interactions planned for the final system. The wireframes are directly based on the functionalities described in the User Stories and cover the main usage and navigation flow of the application.
+
+<div align="center">
+  <sub>FIGURE 4 - Wireframe </sub><br>
+  <img src= "../assets/wireframe.jpg" width="100%"
+  alt="Wireframe"><br>
+  <sup>Source: Diagram created by the author, 2025</sup>
+</div>
+
+Below is a description of the core wireframes designed for the TMO – Task Matrix Organizer. Each screen is tied to key user stories and reflects essential user interactions and functionalities of the system.
+
+#### 1. Main Screen – Areas Overview
+
+This is the initial screen users see after logging in. It displays all their task management areas in a clean, visual layout. Each area is represented with a title and image to make navigation intuitive and visually organized.
+
+#### 2. Task Area – Task Dashboard
+
+Within a selected area, users can create, manage, and move tasks using various visual tools, such as post-it notes, arrows, calendars, and tier lists. The screen is highly customizable while remaining easy to use.
+
+*Related to US01 – Supports flexible and personalized task organization.*
+
+#### 3. Task View – Task Details and Subtasks
+
+This screen allows users to view and edit individual tasks. It includes fields for title, description, deadline, priority, and tags. Users can also create subtasks, mark them as completed, and monitor task-level progress.
+
+*Related to US02 – Enables task breakdown for better progress tracking.*
+
+#### 4. Statistics Screen – Progress Overview
+
+This screen displays relevant productivity metrics, including daily/weekly progress tracking, long-term performance, and task completion rates. The interface is designed to be both informative and motivating, including progress bars and encouraging quotes.
+
+*Related to US03 – Helps users stay engaged through visual progress feedback.*
+
+#### 5. Authentication – Login and Sign-Up
+
+This screen enables secure access to the application. It includes email and password fields, buttons for login and registration, and a "Forgot password?" link, all while providing the right amount of validation through the process.
+
+#### 6. Settings – User Preferences
+
+This screen allows users to personalize their experience. Options include:
+
+- Theme toggle (light/dark mode)
+- Default task sorting preferences (e.g., by date, priority)
+- Account management (name, email, password updates)
+- Logout
+
+*Related to US01 – Enhances customization and long-term usability.*
 
 ### 3.4. Guia de estilos
 
