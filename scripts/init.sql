@@ -38,12 +38,16 @@ CREATE TABLE IF NOT EXISTS element_types (
   title VARCHAR(255)
 );
 
--- Create the elements table with UUID as primary key
+-- Create the tasks table with UUID as primary key
 CREATE TABLE IF NOT EXISTS elements (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   type_id UUID NOT NULL,
   area_id UUID NOT NULL,
   created_at TIMESTAMP DEFAULT now(),
+  title VARCHAR(255)
+  details VARCHAR(2047)
+  deadline TIMESTAMP DEFAULT NULL
+  finished_at TIMESTAMP
   FOREIGN KEY (type_id) REFERENCES element_types(id),
   FOREIGN KEY (area_id) REFERENCES areas(id)
 );
