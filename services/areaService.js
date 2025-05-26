@@ -2,17 +2,13 @@
 
 const db = require('../config/db');
 
-// Get all areas for a specific user
-const getAreasByUserId = async (userId) => {
-  const query = `
-    SELECT a.*
-    FROM areas a
-    JOIN user_area ua ON a.id = ua.area_id
-    WHERE ua.user_id = $1
-    ORDER BY a.created_at DESC
-  `;
-  const result = await db.query(query, [userId]);
-  return result.rows;
+const getAllAreas = async () => {
+  try {
+    const result = await db.query('SELECT * FROM areas');
+    return result.rows;
+  } catch (error) {
+    throw new Error('Error fetching areas: ' + error.message);
+  }
 };
 
 // Get a single area by its ID
@@ -75,7 +71,7 @@ const deleteArea = async (areaId) => {
 };
 
 module.exports = {
-  getAreasByUserId,
+  getAllAreas,
   getAreaById,
   createArea,
   updateArea,

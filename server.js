@@ -1,21 +1,53 @@
+require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const path = require('path');
 const app = express();
-const PORT = 3000;
 
-// Middleware para processar JSON
-app.use(express.json());
+// EJS view engine setup
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views/pages'));
 
-// Rotas
-const frontRoutes = require('./routes/frontRoutes');
-const userRoutes = require('./routes/userRoutes');
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
 
-app.use('/', frontRoutes);
-app.use('/users', userRoutes);
+// Routes
+const routes = require('./routes');
+app.use('/api', routes);
 
-// Inicializa o servidor
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
+// 404 Not Found middleware
+app.use((req, res, next) => {
+  res.status(404).send('Page not found');
 });
+
+// 500 Internal Server Error middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Internal server error');
+});
+
+// Function to try starting the server on an available port
+const tryListen = (port) => {
+  const server = app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.warn(`Port ${port} is already in use. Trying the next one...`);
+      tryListen(port + 1);
+    } else {
+      console.error('Failed to start server:', err);
+    }
+  });
+};
+
+// Start with initial port
+const initialPort = parseInt(process.env.PORT, 10) || 3000;
+tryListen(initialPort);
+
 
 
 // require('dotenv').config();

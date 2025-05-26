@@ -5,39 +5,39 @@ jest.mock('../config/db');
 
 describe('User Model', () => {
   test('deve obter todos os usuários', async () => {
-    db.query.mockResolvedValue({ rows: [{ id: 1, name: 'John Doe', email: 'john@example.com' }] });
+    db.query.mockResolvedValue({ rows: [{ id: 1, username: 'John Doe', email: 'john@example.com' }] });
 
     const users = await User.getAll();
 
-    expect(users).toEqual([{ id: 1, name: 'John Doe', email: 'john@example.com' }]);
+    expect(users).toEqual([{ id: 1, username: 'John Doe', email: 'john@example.com' }]);
   });
 
   test('deve obter um usuário pelo ID', async () => {
-    db.query.mockResolvedValue({ rows: [{ id: 1, name: 'John Doe', email: 'john@example.com' }] });
+    db.query.mockResolvedValue({ rows: [{ id: 1, username: 'John Doe', email: 'john@example.com' }] });
 
     const user = await User.getById(1);
 
-    expect(user).toEqual({ id: 1, name: 'John Doe', email: 'john@example.com' });
+    expect(user).toEqual({ id: 1, username: 'John Doe', email: 'john@example.com' });
   });
 
   test('deve criar um novo usuário', async () => {
     db.query.mockResolvedValue({
-      rows: [{ id: 1, name: 'John Doe', email: 'john@example.com' }],
+      rows: [{ id: 1, username: 'John Doe', email: 'john@example.com' }],
     });
 
-    const newUser = await User.create({ name: 'John Doe', email: 'john@example.com' });
+    const newUser = await User.create({ username: 'John Doe', email: 'john@example.com' });
 
-    expect(newUser).toEqual({ id: 1, name: 'John Doe', email: 'john@example.com' });
+    expect(newUser).toEqual({ id: 1, username: 'John Doe', email: 'john@example.com' });
   });
 
   test('deve atualizar um usuário', async () => {
     db.query.mockResolvedValue({
-      rows: [{ id: 1, name: 'John Doe', email: 'john@example.com' }],
+      rows: [{ id: 1, username: 'John Doe', email: 'john@example.com' }],
     });
 
-    const updatedUser = await User.update(1, { name: 'John Doe', email: 'john@example.com' });
+    const updatedUser = await User.update(1, { username: 'John Doe', email: 'john@example.com' });
 
-    expect(updatedUser).toEqual({ id: 1, name: 'John Doe', email: 'john@example.com' });
+    expect(updatedUser).toEqual({ id: 1, username: 'John Doe', email: 'john@example.com' });
   });
 
   test('deve deletar um usuário', async () => {

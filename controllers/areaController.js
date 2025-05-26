@@ -2,12 +2,10 @@
 
 const areaService = require('../services/areaService');
 
-// Get all areas for a specific user
-const getAreasByUserId = async (req, res) => {
+const getAllAreas = async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const areas = await areaService.getAreasByUserId(userId);
-    res.status(200).json(areas);
+    const areas = await areaService.getAllAreas();
+    res.json(areas);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -74,7 +72,7 @@ const deleteArea = async (req, res) => {
 };
 
 module.exports = {
-  getAreasByUserId,
+  getAllAreas,
   getAreaById,
   createArea,
   updateArea,

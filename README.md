@@ -90,13 +90,17 @@ npm install
 4. Set up your `.env` files for both backend and frontend.
 
 5. Run the development servers:
-- Backend (development): `npm run dev` (on port 3000)
-- Backend (production): `npm start` (on port 3000)
+- Backend (development): `npm run dev` (on port 3000 or other if not available)
+- Backend (production): `npm start` (on port 3000 or other if not available)
 - Frontend: `npm run dev` 
+
+6. Run migrations: `npm run init-db`
+
+7. Testing the API: use an API client like Postman to test routes. Example: `GET /users` → List all users
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 I would like to thank everyone who supported me throughout the development of **TMO** — especially my instructors, colleagues at **Inteli**, and friends who helped test and give feedback during the process. Your insights and encouragement made this project possible.
 

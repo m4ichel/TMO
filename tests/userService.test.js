@@ -12,8 +12,8 @@ describe('userService', () => {
 
   test('getAllUsers deve retornar todos os usuários', async () => {
     const mockUsers = [
-      { id: '1', name: 'John Doe', email: 'john@example.com' },
-      { id: '2', name: 'Jane Doe', email: 'jane@example.com' },
+      { id: '1', username: 'John Doe', email: 'john@example.com' },
+      { id: '2', username: 'Jane Doe', email: 'jane@example.com' },
     ];
     db.query.mockResolvedValueOnce({ rows: mockUsers });
 
@@ -22,7 +22,7 @@ describe('userService', () => {
   });
 
   test('getUserById deve retornar o usuário correto', async () => {
-    const mockUser = { id: '1', name: 'John Doe', email: 'john@example.com' };
+    const mockUser = { id: '1', username: 'John Doe', email: 'john@example.com' };
     db.query.mockResolvedValueOnce({ rows: [mockUser] });
 
     const user = await userService.getUserById('1');
@@ -30,7 +30,7 @@ describe('userService', () => {
   });
 
   test('createUser deve criar um novo usuário', async () => {
-    const newUser = { id: '1', name: 'John Doe', email: 'john@example.com' };
+    const newUser = { id: '1', username: 'John Doe', email: 'john@example.com' };
     db.query.mockResolvedValueOnce({ rows: [newUser] });
 
     const createdUser = await userService.createUser('John Doe', 'john@example.com');
@@ -38,7 +38,7 @@ describe('userService', () => {
   });
 
   test('updateUser deve atualizar um usuário', async () => {
-    const updatedUser = { id: '1', name: 'John Doe', email: 'john_updated@example.com' };
+    const updatedUser = { id: '1', username: 'John Doe', email: 'john_updated@example.com' };
     db.query.mockResolvedValueOnce({ rows: [updatedUser] });
 
     const result = await userService.updateUser('1', 'John Doe', 'john_updated@example.com');
@@ -46,7 +46,7 @@ describe('userService', () => {
   });
 
   test('deleteUser deve deletar um usuário', async () => {
-    const deletedUser = { id: '1', name: 'John Doe', email: 'john@example.com' };
+    const deletedUser = { id: '1', username: 'John Doe', email: 'john@example.com' };
     db.query.mockResolvedValueOnce({ rows: [deletedUser] });
 
     const result = await userService.deleteUser('1');

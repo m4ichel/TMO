@@ -23,11 +23,11 @@ const getUserById = async (id) => {
 };
 
 // Função para criar um novo usuário
-const createUser = async (name, email) => {
+const createUser = async (username, email) => {
   try {
     const result = await db.query(
-      'INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *',
-      [name, email]
+      'INSERT INTO users (username, email) VALUES ($1, $2) RETURNING *',
+      [username, email]
     );
     return result.rows[0];
   } catch (error) {
@@ -36,11 +36,11 @@ const createUser = async (name, email) => {
 };
 
 // Função para atualizar um usuário por ID
-const updateUser = async (id, name, email) => {
+const updateUser = async (id, username, email) => {
   try {
     const result = await db.query(
-      'UPDATE users SET name = $1, email = $2 WHERE id = $3 RETURNING *',
-      [name, email, id]
+      'UPDATE users SET username = $1, email = $2 WHERE id = $3 RETURNING *',
+      [username, email, id]
     );
     return result.rows[0];
   } catch (error) {
