@@ -1,5 +1,11 @@
 -- init.sql
 
+DROP TABLE IF EXISTS user_area CASCADE;
+DROP TABLE IF EXISTS elements CASCADE;
+DROP TABLE IF EXISTS element_types CASCADE;
+DROP TABLE IF EXISTS areas CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+
 -- Create extension to support UUIDs, if not already active
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -38,42 +44,93 @@ CREATE TABLE IF NOT EXISTS element_types (
   title VARCHAR(255)
 );
 
--- Create the elements table with UUID as primary key
+-- Create the tasks table with UUID as primary key
 CREATE TABLE IF NOT EXISTS elements (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   type_id UUID NOT NULL,
   area_id UUID NOT NULL,
   created_at TIMESTAMP DEFAULT now(),
+  title VARCHAR(255),
+  details VARCHAR(2047),
+  deadline TIMESTAMP DEFAULT NULL,
+  finished_at TIMESTAMP,
   FOREIGN KEY (type_id) REFERENCES element_types(id),
   FOREIGN KEY (area_id) REFERENCES areas(id)
 );
 
--- Insert 20 users with random names and emails
-INSERT INTO users (username, email)
-VALUES 
-  ('Alice Smith', 'alice.smith@example.com'),
-  ('Bob Johnson', 'bob.johnson@example.com'),
-  ('Carol Williams', 'carol.williams@example.com'),
-  ('David Jones', 'david.jones@example.com'),
-  ('Emma Brown', 'emma.brown@example.com'),
-  ('Frank Davis', 'frank.davis@example.com'),
-  ('Grace Wilson', 'grace.wilson@example.com'),
-  ('Henry Moore', 'henry.moore@example.com'),
-  ('Isabela Gomes', 'isabela.gomes@example.com'),
-  ('Jack Lee', 'jack.lee@example.com'),
-  ('Kate Clark', 'kate.clark@example.com'),
-  ('Liam Martinez', 'liam.martinez@example.com'),
-  ('Mia Rodriguez', 'mia.rodriguez@example.com'),
-  ('Noah Garcia', 'noah.garcia@example.com'),
-  ('Olivia Hernandez', 'olivia.hernandez@example.com'),
-  ('Patrick Martinez', 'patrick.martinez@example.com'),
-  ('Quinn Lopez', 'quinn.lopez@example.com'),
-  ('Rose Thompson', 'rose.thompson@example.com'),
-  ('Samuel Perez', 'samuel.perez@example.com'),
-  ('Tara Scott', 'tara.scott@example.com'),
-  ('Ulises Anderson', 'ulises.anderson@example.com'),
-  ('Valentina White', 'valentina.white@example.com'),
-  ('Walter Holland', 'walter.holland@example.com'),
-  ('Xavier Renegade', 'xavier.renegade@example.com'),
-  ('Yelena Davidson', 'yelena.davidson@example.com'),
-  ('Zelda Hyrule', 'zelda.hyrule@example.com');
+-- Insert test users
+INSERT INTO users (username, email, password)
+VALUES
+  ('alice', 'alice@example.com', 'hashedpassword1'),
+  ('bob', 'bob@example.com', 'hashedpassword2'),
+  ('charlie', 'charlie@example.com', 'hashedpassword3');
+
+-- Insert test areas
+INSERT INTO areas (title, description, owner_id, is_private)
+VALUES
+  ('Work Projects', 'Tasks related to work and projects', (SELECT id FROM users WHERE username = 'alice'), false),
+  ('Personal Goals', 'My personal development goals', (SELECT id FROM users WHERE username = 'bob'), true),
+  ('University', 'University tasks and deadlines', (SELECT id FROM users WHERE username = 'charlie'), false);
+
+-- Insert user_area relations
+INSERT INTO user_area (user_id, area_id)
+VALUES
+  ((SELECT id FROM users WHERE username = 'alice'), (SELECT id FROM areas WHERE title = 'Work Projects')),
+  ((SELECT id FROM users WHERE username = 'bob'), (SELECT id FROM areas WHERE title = 'Personal Goals')),
+  ((SELECT id FROM users WHERE username = 'charlie'), (SELECT id FROM areas WHERE title = 'University')),
+  -- Example of shared area
+  ((SELECT id FROM users WHERE username = 'alice'), (SELECT id FROM areas WHERE title = 'University'));
+
+-- Insert element types
+INSERT INTO element_types (title)
+VALUES
+  ('post-it'),
+  ('arrow'),
+  ('calendar'),
+  ('tier list'),
+  ('box'),
+  ('circle');
+
+-- Insert elements into 'Work Projects' area (example)
+INSERT INTO elements (type_id, area_id, title, details, deadline, finished_at)
+VALUES
+  (
+    (SELECT id FROM element_types WHERE title = 'post-it'),
+    (SELECT id FROM areas WHERE title = 'Work Projects'),
+    'Finish presentation',
+    'Complete the slides for Monday meeting',
+    NOW() + INTERVAL '3 days',
+    NULL
+  ),
+  (
+    (SELECT id FROM element_types WHERE title = 'calendar'),
+    (SELECT id FROM areas WHERE title = 'Work Projects'),
+    'Project deadlines',
+    'Mark all key project dates',
+    NOW() + INTERVAL '10 days',
+    NULL
+  );
+
+-- Insert elements into 'University' area (example)
+INSERT INTO elements (type_id, area_id, title, details, deadline, finished_at)
+VALUES
+  (
+    (SELECT id FROM element_types WHERE title = 'post-it'),
+    (SELECT id FROM areas WHERE title = 'University'),
+    'Study for math exam',
+    'Review chapters 4 to 7',
+    NOW() + INTERVAL '7 days',
+    NULL
+  );
+
+-- Insert elements into 'Personal Goals' area (example)
+INSERT INTO elements (type_id, area_id, title, details, deadline, finished_at)
+VALUES
+  (
+    (SELECT id FROM element_types WHERE title = 'tier list'),
+    (SELECT id FROM areas WHERE title = 'Personal Goals'),
+    'Fitness progress',
+    'Rank weekly workout achievements',
+    NULL,
+    NULL
+  );

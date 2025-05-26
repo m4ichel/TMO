@@ -15,7 +15,7 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "name": "John Doe",
+  "username": "John Doe",
   "email": "john@example.com"
 }
 
@@ -26,7 +26,7 @@ PUT http://localhost:3000/users/39602f41-b43e-4fa8-b7f7-34c7a516740b
 Content-Type: application/json
 
 {
-  "name": "Jane Doe",
+  "username": "Jane Doe",
   "email": "jane@example.com"
 }
 

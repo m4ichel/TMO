@@ -17,7 +17,7 @@ const getUserById = async (req, res) => {
     if (user) {
       res.status(200).json(user);
     } else {
-      res.status(404).json({ error: 'Usuário não encontrado' });
+      res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -26,8 +26,8 @@ const getUserById = async (req, res) => {
 
 const createUser = async (req, res) => {
   try {
-    const { name, email } = req.body;
-    const newUser = await userService.createUser(name, email);
+    const { username, email, password } = req.body;
+    const newUser = await userService.createUser(username, email, password);
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -36,12 +36,12 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { name, email } = req.body;
-    const updatedUser = await userService.updateUser(req.params.id, name, email);
+    const { username, email } = req.body;
+    const updatedUser = await userService.updateUser(req.params.id, username, email);
     if (updatedUser) {
       res.status(200).json(updatedUser);
     } else {
-      res.status(404).json({ error: 'Usuário não encontrado' });
+      res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -54,7 +54,7 @@ const deleteUser = async (req, res) => {
     if (deletedUser) {
       res.status(200).json(deletedUser);
     } else {
-      res.status(404).json({ error: 'Usuário não encontrado' });
+      res.status(404).json({ error: 'User not found' });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });

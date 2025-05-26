@@ -18,8 +18,8 @@ describe('userController', () => {
 
   test('getAllUsers deve retornar todos os usuários', async () => {
     const mockUsers = [
-      { id: '1', name: 'John Doe', email: 'john@example.com' },
-      { id: '2', name: 'Jane Doe', email: 'jane@example.com' },
+      { id: '1', username: 'John Doe', email: 'john@example.com' },
+      { id: '2', username: 'Jane Doe', email: 'jane@example.com' },
     ];
     userService.getAllUsers.mockResolvedValueOnce(mockUsers);
 
@@ -29,7 +29,7 @@ describe('userController', () => {
   });
 
   test('getUserById deve retornar o usuário correto', async () => {
-    const mockUser = { id: '1', name: 'John Doe', email: 'john@example.com' };
+    const mockUser = { id: '1', username: 'John Doe', email: 'john@example.com' };
     req.params = { id: '1' };
     userService.getUserById.mockResolvedValueOnce(mockUser);
 
@@ -39,8 +39,8 @@ describe('userController', () => {
   });
 
   test('createUser deve criar um novo usuário', async () => {
-    const newUser = { id: '1', name: 'John Doe', email: 'john@example.com' };
-    req.body = { name: 'John Doe', email: 'john@example.com' };
+    const newUser = { id: '1', username: 'John Doe', email: 'john@example.com' };
+    req.body = { username: 'John Doe', email: 'john@example.com' };
     userService.createUser.mockResolvedValueOnce(newUser);
 
     await userController.createUser(req, res);
@@ -49,9 +49,9 @@ describe('userController', () => {
   });
 
   test('updateUser deve atualizar um usuário', async () => {
-    const updatedUser = { id: '1', name: 'John Doe', email: 'john_updated@example.com' };
+    const updatedUser = { id: '1', username: 'John Doe', email: 'john_updated@example.com' };
     req.params = { id: '1' };
-    req.body = { name: 'John Doe', email: 'john_updated@example.com' };
+    req.body = { username: 'John Doe', email: 'john_updated@example.com' };
     userService.updateUser.mockResolvedValueOnce(updatedUser);
 
     await userController.updateUser(req, res);
@@ -60,7 +60,7 @@ describe('userController', () => {
   });
 
   test('deleteUser deve deletar um usuário', async () => {
-    const deletedUser = { id: '1', name: 'John Doe', email: 'john@example.com' };
+    const deletedUser = { id: '1', username: 'John Doe', email: 'john@example.com' };
     req.params = { id: '1' };
     userService.deleteUser.mockResolvedValueOnce(deletedUser);
 

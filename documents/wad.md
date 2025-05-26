@@ -202,18 +202,100 @@ element_types   1 ────<   elements
 - Fine-grained access control through user_area.
 
 ### 3.1.1 BD e Models (Semana 5)
-*Descreva aqui os Models implementados no sistema web*
+<!-- *Descreva aqui os Models implementados no sistema web* -->
+
+In this application, the **Model** layer — temporarily implemented through service files — handles all direct interactions with the **PostgreSQL database**. It is responsible for executing SQL queries, managing data retrieval, insertion, updates, and deletion. Each model file corresponds to a key entity in the system.
+
+
+
+### - `userService.js`
+
+This service manages operations related to **users**.
+
+#### Functions:
+- `getAllUsers()` – Retrieves all users from the database.
+- `getUserById(id)` – Retrieves a single user by their ID.
+- `createUser(username, email)` – Inserts a new user into the database.
+- `updateUser(id, username, email)` – Updates a user's details.
+- `deleteUser(id)` – Removes a user from the database.
+
+**Tables used**: `users`
+
+
+
+### - `areaService.js`
+
+This service handles logic for **areas** of the application, which are like workspaces or containers for grouped content.
+
+#### Functions:
+- `getAllAreas()` – Retrieves all areas from the database.
+- `getAreaById(id)` – Fetches a specific area using its ID.
+- `createArea(title, description, ownerId, isPrivate)` – Creates a new area and links it to the owner via the `user_area` relationship table.
+- `updateArea(id, title, description, isPrivate)` – Updates the metadata of an area.
+- `deleteArea(id)` – Deletes an area from the database.
+
+**Tables used**: `areas`, `user_area`
+
+
+
+### - `userAreaService.js`
+
+This service manages the many-to-many relationship between users and areas.
+
+#### Functions:
+- `addUserToArea(userId, areaId)` – Links a user to an area.
+- `getUsersByArea(areaId)` – Lists all users associated with a specific area.
+- `getAllAreasByUser(userId)` – Retrieves all areas associated with a user.
+- `getPublicAreasByUser(userId)` – Retrieves only public areas for a user.
+- `removeUserFromArea(userId, areaId)` – Removes the relationship between a user and an area.
+
+**Tables used**: `user_area`, `users`, `areas`
+
+
+
+### - `elementService.js`
+
+This service manages **elements**, which are individual items or tasks within an area.
+
+#### Functions:
+- `getAllElementsByArea(areaId)` – Lists all elements in a given area.
+- `getElementById(id)` – Fetches a specific element by ID.
+- `createElement({ type_id, area_id, title, details, deadline })` – Creates a new element, assigning a UUID and timestamp.
+- `updateElement(id, data)` – Updates an existing element’s content or status.
+- `deleteElement(id)` – Deletes an element.
+
+**Tables used**: `elements`
+
+
+
+#### Summary
+
+These services abstract away raw SQL logic, making the rest of the application cleaner and easier to maintain. By organizing database interactions into focused service files, the app remains modular, scalable, and testable.
+
 
 ### 3.2. Arquitetura (Semana 5)
 
-*Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário.*
+<!-- *Posicione aqui o diagrama de arquitetura da sua solução de aplicação web. Atualize sempre que necessário.*
 
 **Instruções para criação do diagrama de arquitetura**  
 - **Model**: A camada que lida com a lógica de negócios e interage com o banco de dados.
 - **View**: A camada responsável pela interface de usuário.
 - **Controller**: A camada que recebe as requisições, processa as ações e atualiza o modelo e a visualização.
   
-*Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.*
+*Adicione as setas e explicações sobre como os dados fluem entre o Model, Controller e View.* -->
+
+<div align="center">
+  <sub>FIGURE 4 - MVC Structure </sub><br>
+  <img src= "../assets/MVC.png" width="100%"
+  alt="MVC Structure"><br>
+  <sup>Source: Diagram created by the author, 2025</sup>
+</div>
+
+For each main table in the database, there are matching **controllers** and **models** in the code, while **views** are dependent on what is shown to the user.
+
+- The **controllers** handle actions like listing, creating, updating, and deleting data (CRUD).
+- These actions are passed to the **models**, which interact with the database.
+- The **views** are responsible for showing the information to the user (HTML pages).
 
 ### 3.3. Wireframes
 
