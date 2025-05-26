@@ -369,7 +369,14 @@ This screen allows users to personalize their experience. Options include:
 
 ### 3.5. Protótipo de alta fidelidade
 
-*Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização).*
+<!-- *Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização).* -->
+
+<div align="center">
+  <sub>FIGURE 6 - High fidelity prototype </sub><br>
+  <img src= "../assets/prototype.png" width="100%"
+  alt="High fidelity prototype"><br>
+  <sup>Source: Diagram created by the author, 2025</sup>
+</div>
 
 ### 3.6. WebAPI e endpoints (Semana 5)
 
