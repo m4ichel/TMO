@@ -334,6 +334,8 @@ This screen displays relevant productivity metrics, including daily/weekly progr
 
 *Related to US03 – Helps users stay engaged through visual progress feedback.*
 
+**Note: This screen was not developed in the final product because of lack of initial knowledge and overall time constraints, which made the total completion of the inicial plans really difficult. But, I was able to understand the requirements to make such a screen and how I would come to execute it in the future.**
+
 #### 5. Authentication – Login and Sign-Up
 
 This screen enables secure access to the application. It includes email and password fields, buttons for login and registration, and a "Forgot password?" link, all while providing the right amount of validation through the process.
@@ -349,34 +351,103 @@ This screen allows users to personalize their experience. Options include:
 
 *Related to US01 – Enhances customization and long-term usability.*
 
-### 3.4. Guia de estilos
+**Note: This screen was also scraped due to time limitations**
 
-*Descreva aqui orientações gerais para o leitor sobre como utilizar os componentes do guia de estilos de sua solução.*
+### 3.4. Style Guide
 
-#### 3.4.1. Cores
+<!-- *Descreva aqui orientações gerais para o leitor sobre como utilizar os componentes do guia de estilos de sua solução.* -->
 
-*Apresente aqui a paleta de cores, com seus códigos de aplicação e suas respectivas funções.*
+This section provides general guidance on how to use the visual components of the system, which are documented and organized in Figma. The goal is to help developers and designers apply the design consistently across all parts of the application.
 
-#### 3.4.2. Tipografia
+**To use a component correctly:**
 
-*Apresente aqui a tipografia da solução, com famílias de fontes e suas respectivas funções.*
+- Locate the component in the Figma Components or Assets panel.
 
-#### 3.4.3. Iconografia e imagens 
+- Use the pre-built variants instead of creating new styles from scratch.
 
-*(esta subseção é opcional, caso não existam ícones e imagens, apague esta subseção)*
+- Follow the documented spacing and alignment shown in the Figma layout guides.
 
-*Posicione aqui imagens e textos contendo exemplos padronizados de ícones e imagens, com seus respectivos atributos de aplicação, utilizadas na solução.*
+- Maintain consistent color and typography as specified in the corresponding sections below.
 
-### 3.5. Protótipo de alta fidelidade
+#### 3.4.1. Colors
+
+<!-- *Apresente aqui a paleta de cores, com seus códigos de aplicação e suas respectivas funções.* -->
+
+| Color Name      | Hex Code   | Usage Description                  | Preview             |
+|-----------------|------------|------------------------------------|---------------------|
+| White           | #DFDBD8  | Main text color, highlights        | ![#DFDBD8](https://via.placeholder.com/20/DFDBD8/000000?text=+) |
+| Gray            | #837470  | Placeholder text on bright colors  | ![#837470](https://via.placeholder.com/20/837470/000000?text=+) |
+| Black           | #1A0E0A  | Primary background color, text     | ![#1A0E0A](https://via.placeholder.com/20/1A0E0A/000000?text=+) |
+| Yellow          | #EBCF80  | Decorations                        | ![#EBCF80](https://via.placeholder.com/20/EBCF80/000000?text=+) |
+| Yellow orange   | #F49B4C  | Decorations, tasks                 | ![#F49B4C](https://via.placeholder.com/20/F49B4C/000000?text=+) |
+| Orange          | #ED682F  | Secondary orange highlights        | ![#ED682F](https://via.placeholder.com/20/ED682F/000000?text=+) |
+| Red orange      | #E54020  | Primary orange highlights          | ![#E54020](https://via.placeholder.com/20/E54020/000000?text=+) |
+| Red             | #AF0F00  | Primary red, backgrounds, sidebar  | ![#AF0F00](https://via.placeholder.com/20/AF0F00/000000?text=+) |
+| Dark red        | #551704  | Secondary background color         | ![#551704](https://via.placeholder.com/20/551704/000000?text=+) |
+| Black red       | #281712  | Tertiary text color                | ![#281712](https://via.placeholder.com/20/281712/000000?text=+) |
+
+#### 3.4.2. Typography
+
+<!-- *Apresente aqui a tipografia da solução, com famílias de fontes e suas respectivas funções.* -->
+
+The web application follows a specific typography style that can be seen in the following table. All fonts inside of the application are of the font family *Oxanium*, as to not overcomplicate the design.
+
+| Size       | Weight(s) | Usage                     |
+|------------|-----------|---------------------------|
+| 128        | Bold      | Big heroes                |
+| 96         | Regular   | H1, big headers           |
+| 64         | Regular   | H2, section headers       |
+| 40         | Medium    | H3, lesser headers        |
+| 24         | Medium    | H4, small titles          |
+| 20         | Regular   | p, body text              |
+| 14         | Regular   | Subtitles                 |
+| 12         | Regular   | Small details             |
+| 36         | Bold      | Important buttons         |
+
+#### 3.4.3. Iconography
+
+<!-- *(esta subseção é opcional, caso não existam ícones e imagens, apague esta subseção)*
+
+*Posicione aqui imagens e textos contendo exemplos padronizados de ícones e imagens, com seus respectivos atributos de aplicação, utilizadas na solução.* -->
+In order for the user to understand what a button does, or what a section is about, before even reading anything, icons were used all around the application. Each of them has their own purpose, which must be followed thoroughly, as described below:
+
+<div align="center">
+  <sub>FIGURE 6 - Icons </sub><br>
+  <img src= "../assets/icons.png" width="30%"
+  alt="Icons"><br>
+  <sup>Source: Diagram created by the author, 2025</sup>
+</div>
+
+1. Hamburger - Opens the sidebar, showing more details about each button in it
+2. Home - Leads to the home page
+3. User - Leads to your user page, or used to pass the idea of a user or username
+4. Key - Indicates a password
+5. Notebook - Represents tasks (on click, adds a task to the area)
+6. Calendar - Represents a calendar (on click, adds a calendar to the area)
+7. Shapes - Represents shapes (on click, adds a shape to the area)
+8. Tierlist - Represents a tierlist (on click, adds a tierlist to the area)
+
+### 3.5. High fidelity prototype
 
 <!-- *Posicione aqui algumas imagens demonstrativas de seu protótipo de alta fidelidade e o link para acesso ao protótipo completo (mantenha o link sempre público para visualização).* -->
 
 <div align="center">
   <sub>FIGURE 6 - High fidelity prototype </sub><br>
-  <img src= "../assets/prototype.png" width="100%"
+  <img src= "../assets/prototypeAll.png" width="100%"
   alt="High fidelity prototype"><br>
   <sup>Source: Diagram created by the author, 2025</sup>
 </div>
+
+<div align="center">
+  <sub>FIGURE 6 - Style guide </sub><br>
+  <img src= "../assets/styleGuide.png" width="100%"
+  alt="Style guide"><br>
+  <sup>Source: Diagram created by the author, 2025</sup>
+</div>
+
+🔗 [View the full prototype](https://www.figma.com/design/FTmG5RzomQKCIjNPkwhx9e/TMO-Prototypes?m=auto&t=l0Hwv271JRcn2pEO-6)
+
+
 
 ### 3.6. WebAPI e endpoints (Semana 5)
 
