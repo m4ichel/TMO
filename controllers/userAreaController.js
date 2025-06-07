@@ -1,12 +1,12 @@
 // controllers/userAreaController.js
 
-const userAreaService = require('../services/userAreaService');
+const userAreaModel = require('../models/userAreaModel');
 
 // Add a user to an area
 const addUserToArea = async (req, res) => {
   try {
     const { userId, areaId } = req.body;
-    const result = await userAreaService.addUserToArea(userId, areaId);
+    const result = await userAreaModel.addUserToArea(userId, areaId);
     res.status(201).json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -17,7 +17,7 @@ const addUserToArea = async (req, res) => {
 const getUsersByArea = async (req, res) => {
   try {
     const areaId = req.params.areaId;
-    const users = await userAreaService.getUsersByArea(areaId);
+    const users = await userAreaModel.getUsersByArea(areaId);
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -28,7 +28,7 @@ const getUsersByArea = async (req, res) => {
 const getAllAreasByUser = async (req, res) => {
   try {
     const { user_id } = req.params;
-    const areas = await userAreaService.getAllAreasByUser(user_id);
+    const areas = await userAreaModel.getAllAreasByUser(user_id);
     res.status(200).json(areas);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -39,7 +39,7 @@ const getAllAreasByUser = async (req, res) => {
 const getPublicAreasByUser = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const areas = await userAreaService.getPublicAreasByUser(userId);
+    const areas = await userAreaModel.getPublicAreasByUser(userId);
     res.status(200).json(areas);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -50,7 +50,7 @@ const getPublicAreasByUser = async (req, res) => {
 const removeUserFromArea = async (req, res) => {
   try {
     const { userId, areaId } = req.body;
-    const result = await userAreaService.removeUserFromArea(userId, areaId);
+    const result = await userAreaModel.removeUserFromArea(userId, areaId);
     res.status(200).json({ message: 'User removed from area successfully', result });
   } catch (error) {
     res.status(500).json({ error: error.message });

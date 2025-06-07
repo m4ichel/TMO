@@ -1,10 +1,10 @@
 // controllers/areaController.js
 
-const areaService = require('../services/areaService');
+const areaModel = require('../models/areaModel');
 
 const getAllAreas = async (req, res) => {
   try {
-    const areas = await areaService.getAllAreas();
+    const areas = await areaModel.getAllAreas();
     res.json(areas);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -15,7 +15,7 @@ const getAllAreas = async (req, res) => {
 const getAreaById = async (req, res) => {
   try {
     const areaId = req.params.id;
-    const area = await areaService.getAreaById(areaId);
+    const area = await areaModel.getAreaById(areaId);
 
     if (area) {
       res.status(200).json(area);
@@ -31,7 +31,7 @@ const getAreaById = async (req, res) => {
 const createArea = async (req, res) => {
   try {
     const { title, description, owner_id, is_private } = req.body;
-    const newArea = await areaService.createArea(title, description, owner_id, is_private);
+    const newArea = await areaModel.createArea(title, description, owner_id, is_private);
     res.status(201).json(newArea);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -43,7 +43,7 @@ const updateArea = async (req, res) => {
   try {
     const areaId = req.params.id;
     const { title, description, is_private } = req.body;
-    const updatedArea = await areaService.updateArea(areaId, title, description, is_private);
+    const updatedArea = await areaModel.updateArea(areaId, title, description, is_private);
 
     if (updatedArea) {
       res.status(200).json(updatedArea);
@@ -59,7 +59,7 @@ const updateArea = async (req, res) => {
 const deleteArea = async (req, res) => {
   try {
     const areaId = req.params.id;
-    const deletedArea = await areaService.deleteArea(areaId);
+    const deletedArea = await areaModel.deleteArea(areaId);
 
     if (deletedArea) {
       res.status(200).json({ message: 'Area deleted successfully' });
