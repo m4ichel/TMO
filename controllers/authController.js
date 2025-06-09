@@ -20,8 +20,8 @@ const loginProcess = async (req, res) => {
     }
 
     if (user.password === password) {
-      req.session.userId = user.id; // Store user ID in session
-      return res.render('home', { username: user.username });
+      req.session.userId = user.id;
+      return res.redirect('/home');
     } else {
       return res.render('login', { error: 'Invalid username or password.' });
     }

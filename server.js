@@ -37,6 +37,12 @@ app.use(express.urlencoded({ extended: true }));
 const authRoutes = require('./routes/authRoutes');
 app.use('/', authRoutes);
 
+const homeRoutes = require('./routes/homeRoutes');
+app.use('/', homeRoutes);
+
+const areaPageRoutes = require('./routes/areaPageRoutes');
+app.use('/', areaPageRoutes);
+
 // View routes
 const viewRoutes = require('./routes/viewRoutes');
 app.use('/', viewRoutes);
