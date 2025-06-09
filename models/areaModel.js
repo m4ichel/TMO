@@ -1,4 +1,4 @@
-// services/areaService.js
+// models/areaModel.js
 
 const db = require('../config/db');
 

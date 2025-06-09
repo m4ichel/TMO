@@ -1,4 +1,4 @@
-// services/userAreaService.js
+// models/userAreaModel.js
 
 const db = require('../config/db');
 

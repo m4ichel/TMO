@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <form action="/login" method="POST" class="form-container">
+            <img class="profile-image" style="width: 292px; height: 292px; border-radius: 1000px"
+                src="https://placehold.co/292x292" />
+            <div>
+                <div class="form-container" style="gap: 24px">
+                    <div class="input-field">
+                        <div class="input-icon">
+                            <div class="nav-icon-outline"
+                                style="width: 15px; height: 15px; left: 10.50px; top: 4.50px;">
+                            </div>
+                            <div class="nav-icon-outline" style="width: 24px; height: 12px; left: 6px; top: 19.50px;">
+                            </div>
+                        </div>
+                        <input class="input-text" type="username" id="username" name="username" placeholder="Username"
+                            required></input>
+                    </div>
+                    <div class="input-field">
+                        <div class="input-icon">
+                            <div class="nav-icon-outline" style="width: 30px; height: 30px; left: 3px; top: 3px;">
+                            </div>
+                            <div class="nav-icon-outline"
+                                style="width: 2px; height: 2px; left: 24px; top: 10px; background: var(--color-primary-light);">
+                            </div>
+                        </div>
+                        <input class="input-text" type="password" id="password" name="password" placeholder="Password"
+                            required></input>
+                    </div>
+                </div>
+                <% if (error) { %>
+                    <p class="error">
+                        <%= error %>
+                    </p>
+                    <% } %>
+            </div>
+            <div class="btn-primary">
+                <button type="submit" class="btn-text">Enter</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

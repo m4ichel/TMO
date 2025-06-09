@@ -1,10 +1,10 @@
 // controllers/userController.js
 
-const userService = require('../services/userService');
+const userModel = require('../models/userModel');
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await userService.getAllUsers();
+    const users = await userModel.getAllUsers();
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -13,7 +13,7 @@ const getAllUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    const user = await userService.getUserById(req.params.id);
+    const user = await userModel.getUserById(req.params.id);
     if (user) {
       res.status(200).json(user);
     } else {
@@ -27,7 +27,7 @@ const getUserById = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    const newUser = await userService.createUser(username, email, password);
+    const newUser = await userModel.createUser(username, email, password);
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -37,7 +37,7 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     const { username, email } = req.body;
-    const updatedUser = await userService.updateUser(req.params.id, username, email);
+    const updatedUser = await userModel.updateUser(req.params.id, username, email);
     if (updatedUser) {
       res.status(200).json(updatedUser);
     } else {
@@ -50,7 +50,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    const deletedUser = await userService.deleteUser(req.params.id);
+    const deletedUser = await userModel.deleteUser(req.params.id);
     if (deletedUser) {
       res.status(200).json(deletedUser);
     } else {

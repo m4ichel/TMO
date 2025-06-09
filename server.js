@@ -4,6 +4,16 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
+const session = require('express-session');
+
+// Middleware for session handling
+// Note: In production, use a more secure session store like connect-redis or connect-mongo
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false } // set to true if using HTTPS
+}));
 
 // EJS view engine setup
 app.set('view engine', 'ejs');
@@ -13,9 +23,29 @@ app.set('views', path.join(__dirname, 'views/pages'));
 app.use(cors());
 app.use(bodyParser.json());
 
+console.log('Serving static files from:', path.join(__dirname, 'public'));
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Routes
 const routes = require('./routes');
 app.use('/api', routes);
+
+// Middleware para processar dados enviados via formulário
+app.use(express.urlencoded({ extended: true }));
+
+// Authentication routes
+const authRoutes = require('./routes/authRoutes');
+app.use('/', authRoutes);
+
+const homeRoutes = require('./routes/homeRoutes');
+app.use('/', homeRoutes);
+
+const areaPageRoutes = require('./routes/areaPageRoutes');
+app.use('/', areaPageRoutes);
+
+// View routes
+const viewRoutes = require('./routes/viewRoutes');
+app.use('/', viewRoutes);
 
 // 404 Not Found middleware
 app.use((req, res, next) => {
