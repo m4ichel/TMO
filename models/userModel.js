@@ -1,89 +1,170 @@
 // models/userModel.js
 
 const db = require('../config/db');
+const { v4: uuidv4 } = require('uuid');
+const bcrypt = require('bcrypt');
 
-// Função para obter todos os usuários
-const getAllUsers = async () => {
+// Get a user by ID
+const getUserById = async (userId) => {
   try {
-    const result = await db.query(
-      'SELECT * FROM users'
-    );
-    return result.rows;
+    // Only select columns that exist in your database
+    const query = 'SELECT id, username, email, created_at FROM users WHERE id = $1';
+    const result = await db.query(query, [userId]);
+    
+    // Add default profile image to the user object after retrieving from DB
+    const user = result.rows[0];
+    if (user) {
+      // Add profile_image property to the user object
+      user.profile_image = '/images/default-profile.png';
+    }
+    
+    return user;
   } catch (error) {
-    throw new Error('Error while getting users: ' + error.message);
+    throw new Error('Error fetching user: ' + error.message);
   }
 };
 
-// Função para obter um usuário por ID
-const getUserById = async (id) => {
-  try {
-    const result = await db.query(
-      'SELECT * FROM users WHERE id = $1', 
-      [id]
-    );
-    return result.rows[0];
-  } catch (error) {
-    throw new Error('Error while getting user: ' + error.message);
-  }
-};
-
-// Get a user by username
+// Get user by username
 const getUserByUsername = async (username) => {
   try {
-  const result = await db.query(
-    'SELECT * FROM users WHERE username = $1', 
-    [username]
-  );
-  return result.rows[0];
-} catch (error) {
-  throw new Error('Error while getting user by username: ' + error.message);
-}
-};
-
-// Função para criar um novo usuário
-const createUser = async (username, password) => {
-  try {
-    const result = await db.query(
-      'INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *', 
-      [username, password]
-    );
-    return result.rows[0];
+    const query = 'SELECT id, username, email, password, created_at FROM users WHERE username = $1';
+    const result = await db.query(query, [username]);
+    
+    const user = result.rows[0];
+    if (user) {
+      user.profile_image = '/images/default-profile.png';
+    }
+    
+    return user;
   } catch (error) {
-    throw new Error('Error while creating user: ' + error.message);
+    throw new Error('Error fetching user by username: ' + error.message);
   }
 };
 
-// Função para atualizar um usuário por ID
-const updateUser = async (id, username, email) => {
+// Get user by email
+const getUserByEmail = async (email) => {
   try {
-    const result = await db.query(
-      'UPDATE users SET username = $1, email = $2 WHERE id = $3 RETURNING *',
-      [username, email, id]
-    );
+    const result = await db.query('SELECT * FROM users WHERE email = $1', [email]);
     return result.rows[0];
   } catch (error) {
-    throw new Error('Error while updating user: ' + error.message);
+    console.error('Error getting user by email:', error);
+    throw error;
   }
 };
 
-// Função para deletar um usuário por ID
+// Create a new user
+const createUser = async (username, email, password, profileImage = null) => {
+  try {
+    // Generate a unique ID
+    const id = uuidv4();
+    
+    // Hash the password
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    
+    // Insert the new user
+    let query, params;
+    
+    if (profileImage) {
+      query = 'INSERT INTO users (id, username, email, password, profile_image, created_at) VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING *';
+      params = [id, username, email, hashedPassword, profileImage];
+    } else {
+      query = 'INSERT INTO users (id, username, email, password, created_at) VALUES ($1, $2, $3, $4, NOW()) RETURNING *';
+      params = [id, username, email, hashedPassword];
+    }
+    
+    const result = await db.query(query, params);
+    
+    return result.rows[0];
+  } catch (error) {
+    console.error('Error creating user:', error);
+    throw error;
+  }
+};
+
+// Get all users
+const getAllUsers = async () => {
+  try {
+    const query = 'SELECT id, username, email, created_at FROM users';
+    const result = await db.query(query);
+    
+    // Add profile_image to each user
+    const users = result.rows;
+    users.forEach(user => {
+      user.profile_image = '/images/default-profile.png';
+    });
+    
+    return users;
+  } catch (error) {
+    throw new Error('Error fetching all users: ' + error.message);
+  }
+};
+
+// Update user
+const updateUser = async (id, userData) => {
+  try {
+    const { username, email, password } = userData;
+    let hashedPassword = null;
+    
+    // Hash the password if provided
+    if (password) {
+      const saltRounds = 10;
+      hashedPassword = await bcrypt.hash(password, saltRounds);
+    }
+    
+    // Build the query dynamically based on provided fields
+    let query = 'UPDATE users SET ';
+    const values = [];
+    const updateFields = [];
+    let paramIndex = 1;
+    
+    if (username) {
+      updateFields.push(`username = $${paramIndex}`);
+      values.push(username);
+      paramIndex++;
+    }
+    
+    if (email) {
+      updateFields.push(`email = $${paramIndex}`);
+      values.push(email);
+      paramIndex++;
+    }
+    
+    if (hashedPassword) {
+      updateFields.push(`password = $${paramIndex}`);
+      values.push(hashedPassword);
+      paramIndex++;
+    }
+    
+    // Add the WHERE clause
+    query += updateFields.join(', ') + ` WHERE id = $${paramIndex} RETURNING *`;
+    values.push(id);
+    
+    const result = await db.query(query, values);
+    return result.rows[0];
+  } catch (error) {
+    console.error('Error updating user:', error);
+    throw error;
+  }
+};
+
+// Delete user
 const deleteUser = async (id) => {
   try {
-    const result = await db.query(
-      'DELETE FROM users WHERE id = $1 RETURNING *', 
-      [id]
-    );
+    const result = await db.query('DELETE FROM users WHERE id = $1 RETURNING *', [id]);
     return result.rows[0];
   } catch (error) {
-    throw new Error('Error while deleting user: ' + error.message);
+    console.error('Error deleting user:', error);
+    throw error;
   }
 };
 
 module.exports = {
-  getAllUsers,
   getUserById,
   getUserByUsername,
+  getUserByEmail,
   createUser,
+  getAllUsers,
   updateUser,
   deleteUser
 };

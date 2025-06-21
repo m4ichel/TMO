@@ -4,34 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Area</title>
+    <title>Area - Task Matrix Organizer</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Add Lucide script -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="sidebar">
-            <div class="nav-item">
+            <a href="#" class="nav-item" id="sidebar-toggle">
                 <div class="nav-icon">
-                    <div class="nav-icon-outline" style="width: 36px; height: 24px; left: 6px; top: 12px;"></div>
+                    <i data-lucide="menu" class="lucide-icon"></i>
                 </div>
-            </div>
-            <div class="nav-item">
+            </a>
+            <a href="/home" class="nav-item">
                 <div class="nav-icon">
-                    <div class="nav-icon-outline" style="width: 12px; height: 18px; left: 18px; top: 24px;"></div>
-                    <div class="nav-icon-outline" style="width: 36px; height: 38px; left: 6px; top: 4px;"></div>
+                    <i data-lucide="home" class="lucide-icon"></i>
                 </div>
-            </div>
-            <div class="nav-item">
+            </a>
+            <a href="/profile" class="nav-item">
                 <div class="nav-icon">
-                    <div class="nav-icon-outline" style="width: 20px; height: 20px; left: 14px; top: 6px;"></div>
-                    <div class="nav-icon-outline" style="width: 32px; height: 16px; left: 8px; top: 26px;"></div>
+                    <i data-lucide="user" class="lucide-icon"></i>
                 </div>
-            </div>
+            </a>
         </div>
-        <div class="main-content" style="height: 1080px;">
+        <div class="main-content area-main-content">
+            <div class="area-header">
+                <h1 class="area-title"><%= area.title %></h1>
+                <p class="area-description"><%= area.description %></p>
+                <p class="area-date">Created at: <%= new Date(area.created_at).toLocaleDateString() %></p>
+                <a href="/home" class="btn-back">Back to Home</a>
+            </div>
+            
             <div class="header">
-                <div class="nav-item" style="width: 204px; padding-right: 36px;">
+                <div class="nav-item" style="width: 204px; padding-right: 36px;" id="post-it-button">
                     <div class="nav-icon">
                         <div class="nav-icon-outline" style="width: 36px; height: 40px; left: 4px; top: 4px;"></div>
                         <div class="nav-icon-outline" style="width: 20px; height: 20px; left: 24px; top: 4px;"></div>
@@ -39,7 +47,7 @@
                     <div class="text-regular" style="width: 44px; height: 24px; text-align: center; font-weight: 600;">
                         Task</div>
                 </div>
-                <div class="nav-item" style="width: 204px; padding-right: 36px;">
+                <div class="nav-item" style="width: 204px; padding-right: 36px;" id="shapes-button">
                     <div class="nav-icon">
                         <div class="nav-icon-outline"
                             style="width: 17.73px; height: 14.72px; left: 15.12px; top: 5.28px;"></div>
@@ -49,7 +57,7 @@
                     <div class="text-regular" style="width: 68px; height: 24px; text-align: center; font-weight: 600;">
                         Shapes</div>
                 </div>
-                <div class="nav-item" style="width: 204px; padding-right: 36px;">
+                <div class="nav-item" style="width: 204px; padding-right: 36px;" id="tier-list-button">
                     <div class="nav-icon" style="transform: rotate(-180deg); transform-origin: top left;">
                         <div class="nav-icon-outline" style="width: 36px; height: 36px; left: 6px; top: 6px;"></div>
                         <div class="nav-icon-outline" style="width: 36px; height: 12px; left: 6px; top: 18px;"></div>
@@ -57,7 +65,7 @@
                     <div class="text-regular" style="width: 77px; height: 24px; text-align: center; font-weight: 600;">
                         Tier List</div>
                 </div>
-                <div class="nav-item" style="width: 204px; padding-right: 36px;">
+                <div class="nav-item" style="width: 204px; padding-right: 36px;" id="calendar-button">
                     <div class="nav-icon">
                         <div class="nav-icon-outline" style="width: 16px; height: 8px; left: 16px; top: 4px;"></div>
                         <div class="nav-icon-outline" style="width: 36px; height: 36px; left: 6px; top: 8px;"></div>
@@ -66,59 +74,47 @@
                         Calendar</div>
                 </div>
             </div>
-            <h1><%= area.title %></h1>
-  <p><%= area.description %></p>
-  <p>Created at: <%= new Date(area.created_at).toLocaleDateString() %></p>
-  <a href="/home">Voltar</a>
-            <div class="main-content" style="left: 0px; top: 84px;">
-                <div class="footer" style="left: 125px; top: 1887px;">
-                    <div><span class="footer-text footer-text-bold">did you know?</span><span
-                            class="footer-text footer-text-regular"> → The name TMO was inspired by the robot named BMO
-                            from Adventure Time.</span></div>
-                </div>
-                <div style="width: 1836px; height: 1887px; left: 0px; top: 0px; position: absolute;">
-                    <div
-                        style="width: 276px; height: 276px; left: 1069px; top: 1125px; position: absolute; border-radius: 9999px; border: 5px white solid">
-                    </div>
-                    <div class="tier-container" style="left: 132px; top: 122px;">
-                        <div class="tier-row">
-                            <div class="tier-box tier-s">
-                                <div class="tier-letter">S</div>
-                            </div>
-                        </div>
-                        <div class="tier-row">
-                            <div class="tier-box tier-a">
-                                <div class="tier-letter">A</div>
-                            </div>
-                        </div>
-                        <div class="tier-row">
-                            <div class="tier-box tier-b">
-                                <div class="tier-letter">B</div>
-                            </div>
-                        </div>
-                        <div class="tier-row">
-                            <div class="tier-box tier-c">
-                                <div class="tier-letter">C</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Task cards -->
-                    <div class="card" style="width: 156px; height: 156px; left: 406px; top: 139px;">
-                        <div class="card-content" style="height: 120px;">
-                            <div class="card-title">Title of the task ...........
-                                ...........................................</div>
-                        </div>
-                    </div>
-                    <!-- Repeat similar structure for other task cards -->
-                    <div class="decorative-box"
-                        style="width: 260px; height: 291px; left: 1127px; top: 548px; background: var(--color-brown-dark);">
-                    </div>
+            
+            <div class="area-content">
+                <div id="elements-container">
+                    
                 </div>
             </div>
+            
+            <div class="footer">
+                <div><span class="footer-text footer-text-bold">did you know?</span><span
+                        class="footer-text footer-text-regular"> → The name TMO was inspired by the robot named BMO
+                        from Adventure Time.</span></div>
+            </div>
         </div>
-        <img style="width: 84px; height: 84px; left: 1776px; top: 60px; position: absolute; border-radius: 1000px"
-            src="https://placehold.co/84x84" />
+        <img class="user-avatar" src="/images/default-profile.png" alt="User avatar" />
     </div>
+    
+    <!-- Include the external JavaScript files in the correct order -->
+    <script src="/js/elements.js"></script>
+    <script src="/js/sidebar.js"></script>
+    <script src="/js/icons.js"></script>
+    <script src="/js/drag-elements.js"></script>
+    <script src="/js/area-buttons.js"></script>
+    <script>
+        // Initialize elements with their saved positions
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('#elements-container .card');
+            elements.forEach(element => {
+                // Make sure the element is positioned absolutely
+                element.style.position = 'absolute';
+                
+                // Set z-index based on element type
+                if (element.classList.contains('post-it')) {
+                    element.style.zIndex = 100;
+                } else {
+                    element.style.zIndex = 10;
+                }
+            });
+            
+            // Remove event listeners from here - they're handled in area-buttons.js
+        });
+    </script>
 </body>
 
 </html>

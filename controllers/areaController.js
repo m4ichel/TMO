@@ -1,6 +1,9 @@
 // controllers/areaController.js
 
 const areaModel = require('../models/areaModel');
+const userModel = require('../models/userModel');
+const userAreaModel = require('../models/userAreaModel');
+const elementModel = require('../models/elementModel');
 
 const getAllAreas = async (req, res) => {
   try {
@@ -71,10 +74,55 @@ const deleteArea = async (req, res) => {
   }
 };
 
+const showAreaPage = async (req, res) => {
+  const areaId = req.params.id;
+  const userId = req.session.userId;
+  
+  if (!userId) {
+    return res.redirect('/login');
+  }
+  
+  try {
+    // Get user information
+    const user = await userModel.getUserById(userId);
+    
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+    
+    // Get area information
+    const area = await areaModel.getAreaById(areaId);
+    
+    if (!area) {
+      return res.status(404).send('Area not found');
+    }
+    
+    // Check if user has access to this area
+    const hasAccess = await userAreaModel.checkUserAreaAccess(userId, areaId);
+    
+    if (!hasAccess) {
+      return res.status(403).send('You do not have access to this area');
+    }
+    
+    // Get elements for this area
+    const elements = await elementModel.getElementsByArea(areaId);
+    
+    res.render('pages/area', { 
+      user: user,
+      area: area,
+      elements: elements 
+    });
+  } catch (err) {
+    console.error('Error loading area page:', err);
+    res.status(500).send('Error loading area page');
+  }
+};
+
 module.exports = {
   getAllAreas,
   getAreaById,
   createArea,
   updateArea,
-  deleteArea
+  deleteArea,
+  showAreaPage
 };

@@ -5,19 +5,37 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const app = express();
 const session = require('express-session');
+const bcrypt = require('bcrypt');
 
-// Middleware for session handling
-// Note: In production, use a more secure session store like connect-redis or connect-mongo
+// Session middleware
 app.use(session({
-  secret: 'your-secret-key',
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false } // set to true if using HTTPS
+  cookie: { secure: process.env.NODE_ENV === 'production' }
 }));
+
+// Make user data available to all views
+app.use((req, res, next) => {
+  res.locals.user = req.session.userId ? {
+    id: req.session.userId,
+    username: req.session.username,
+    profile_image: req.session.profileImage || '/images/default-profile.png'
+  } : null;
+  next();
+});
+
+// Auth middleware
+function requireAuth(req, res, next) {
+  if (!req.session.userId) {
+    return res.redirect('/login');
+  }
+  next();
+}
 
 // EJS view engine setup
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views/pages'));
+app.set('views', path.join(__dirname, 'views'));
 
 // Middleware
 app.use(cors());
@@ -37,15 +55,25 @@ app.use(express.urlencoded({ extended: true }));
 const authRoutes = require('./routes/authRoutes');
 app.use('/', authRoutes);
 
+// Home routes
 const homeRoutes = require('./routes/homeRoutes');
 app.use('/', homeRoutes);
 
+// Profile routes
+const profileRoutes = require('./routes/profileRoutes');
+app.use('/', requireAuth, profileRoutes);
+
+// Area page routes
 const areaPageRoutes = require('./routes/areaPageRoutes');
-app.use('/', areaPageRoutes);
+app.use('/', requireAuth, areaPageRoutes);
 
 // View routes
 const viewRoutes = require('./routes/viewRoutes');
 app.use('/', viewRoutes);
+
+// Element API routes
+const elementRoutes = require('./routes/elementRoutes');
+app.use('/api/element', elementRoutes);
 
 // 404 Not Found middleware
 app.use((req, res, next) => {

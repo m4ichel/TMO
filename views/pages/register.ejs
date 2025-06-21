@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Task Matrix Organizer</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Add Lucide script -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-box register-box">
+            <form action="/register" method="POST" class="login-form" enctype="multipart/form-data">
+                <div class="profile-image-container">
+                    <img class="profile-image" id="profile-preview" src="https://placehold.co/200x200" alt="Profile" style="border-color: var(--color-primary);" />
+                    <div class="profile-upload-overlay" style="background: var(--color-primary);">
+                        <label for="profile-upload" class="profile-upload-label">
+                            <div class="upload-icon">
+                                <i data-lucide="camera" class="lucide-icon"></i>
+                            </div>
+                            <span>Upload Photo</span>
+                        </label>
+                        <input type="file" id="profile-upload" name="profile_image" accept="image/*" style="display: none;">
+                    </div>
+                </div>
+                
+                <div class="login-fields">
+                    <div class="input-field">
+                        <div class="input-icon">
+                            <!-- User icon - simple person silhouette -->
+                            <div class="nav-icon-outline" style="width: 18px; height: 18px; left: 9px; top: 4px; border-radius: 50%;"></div>
+                            <div class="nav-icon-outline" style="width: 24px; height: 12px; left: 6px; top: 22px; border-radius: 12px 12px 0 0;"></div>
+                        </div>
+                        <input class="input-text" type="text" id="username" name="username" placeholder="Username" required>
+                    </div>
+                    
+                    <div class="input-field">
+                        <div class="input-icon">
+                            <!-- Email icon - envelope -->
+                            <div class="nav-icon-outline" style="width: 28px; height: 20px; left: 4px; top: 8px; border-radius: 3px;"></div>
+                            <div class="nav-icon-outline" style="width: 24px; height: 2px; left: 6px; top: 12px; background: var(--color-input);"></div>
+                            <div class="nav-icon-outline" style="width: 12px; height: 2px; left: 12px; top: 16px; background: var(--color-input);"></div>
+                            <div class="nav-icon-outline" style="width: 6px; height: 2px; left: 15px; top: 20px; background: var(--color-input);"></div>
+                        </div>
+                        <input class="input-text" type="email" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    
+                    <div class="input-field">
+                        <div class="input-icon">
+                            <!-- Lock icon for password -->
+                            <div class="nav-icon-outline" style="width: 20px; height: 16px; left: 8px; top: 12px; border-radius: 3px;"></div>
+                            <div class="nav-icon-outline" style="width: 8px; height: 8px; left: 14px; top: 16px; border-radius: 50%; background: var(--color-input);"></div>
+                            <div class="nav-icon-outline" style="width: 2px; height: 6px; left: 17px; top: 20px; background: var(--color-input);"></div>
+                        </div>
+                        <input class="input-text" type="password" id="password" name="password" placeholder="Password" required>
+                    </div>
+                    
+                    <div class="input-field">
+                        <div class="input-icon">
+                            <!-- Confirm lock icon for password confirmation -->
+                            <div class="nav-icon-outline" style="width: 20px; height: 16px; left: 8px; top: 12px; border-radius: 3px;"></div>
+                            <div class="nav-icon-outline" style="width: 8px; height: 8px; left: 14px; top: 16px; border-radius: 50%; background: var(--color-input);"></div>
+                            <div class="nav-icon-outline" style="width: 2px; height: 6px; left: 17px; top: 20px; background: var(--color-input);"></div>
+                            <div class="nav-icon-outline" style="width: 6px; height: 6px; left: 24px; top: 8px; border-radius: 50%; background: var(--color-primary-light);"></div>
+                        </div>
+                        <input class="input-text" type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+                    </div>
+                    
+                    <% if (error) { %>
+                        <div class="error-message">
+                            <%= error %>
+                        </div>
+                    <% } %>
+                </div>
+                
+                <button type="submit" class="btn-primary">
+                    <span class="btn-text">Register</span>
+                </button>
+            </form>
+            
+            <div class="login-footer">
+                <p class="text-regular">Already have an account? <a href="/login" class="auth-link">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Preview uploaded profile image
+        document.getElementById('profile-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-preview').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+
+<script src="/js/icons.js"></script>
+
+</html>
+
+
+
+
+
+

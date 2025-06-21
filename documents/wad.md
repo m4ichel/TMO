@@ -258,7 +258,7 @@ This service manages the many-to-many relationship between users and areas.
 This service manages **elements**, which are individual items or tasks within an area.
 
 #### Functions:
-- `getAllElementsByArea(areaId)` – Lists all elements in a given area.
+- `getElementsByArea(areaId)` – Lists all elements in a given area.
 - `getElementById(id)` – Fetches a specific element by ID.
 - `createElement({ type_id, area_id, title, details, deadline })` – Creates a new element, assigning a UUID and timestamp.
 - `updateElement(id, data)` – Updates an existing element’s content or status.

@@ -4,64 +4,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Profile - Task Matrix Organizer</title>
     <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Add Lucide script -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 
 <body>
     <div class="container">
     <div class="sidebar">
-        <div class="nav-item">
+        <a href="#" class="nav-item" id="sidebar-toggle">
             <div class="nav-icon">
-                <div class="nav-icon-outline" style="width: 36px; height: 24px; left: 6px; top: 12px;"></div>
+                <i data-lucide="menu" class="lucide-icon"></i>
             </div>
-        </div>
-        <div class="nav-item">
+        </a>
+        <a href="/home" class="nav-item">
             <div class="nav-icon">
-                <div class="nav-icon-outline" style="width: 12px; height: 18px; left: 18px; top: 24px;"></div>
-                <div class="nav-icon-outline" style="width: 36px; height: 38px; left: 6px; top: 4px;"></div>
+                <i data-lucide="home" class="lucide-icon"></i>
             </div>
-        </div>
-        <div class="nav-item">
+        </a>
+        <a href="/profile" class="nav-item active">
             <div class="nav-icon">
-                <div class="nav-icon-outline" style="width: 20px; height: 20px; left: 14px; top: 6px;"></div>
-                <div class="nav-icon-outline" style="width: 32px; height: 16px; left: 8px; top: 26px;"></div>
+                <i data-lucide="user" class="lucide-icon"></i>
             </div>
-        </div>
+        </a>
     </div>
     <div class="main-content">
-        <div class="footer" style="left: 125px; top: 1887px;">
-            <div><span class="footer-text footer-text-bold">did you know?</span><span class="footer-text footer-text-regular"> → TMO kinda looks like a face if you look hard enough.</span></div>
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-info">
+                    <div class="title-large"><%= user.username %></div>
+                    <div class="title-medium">Created: <%= createdAt %></div>
+                </div>
+                <img class="profile-avatar" src="/images/default-profile.png" alt="Profile avatar" />
+            </div>
+            
+            <div class="profile-areas">
+                <div class="title-large"><%=user.username %>'s public areas:</div>
+                <div class="grid-container">
+                    <% if (areas.length < 1) { %>
+                        <div class="no-areas-message">No public areas found.</div>
+                    <% } else { %>
+                        <% areas.forEach(area => { %>
+                            <a href="/area/<%= area.id %>" class="card-link">
+                                <div class="card">
+                                    <img class="card-image" src="https://placehold.co/277x180" alt="Area thumbnail" />
+                                    <div class="card-content">
+                                        <div class="card-title"><%= area.title %></div>
+                                        <div class="card-date">Created at: <%= new Date(area.created_at).toLocaleDateString() %></div>
+                                    </div>
+                                </div>
+                            </a>
+                        <% }) %>
+                    <% } %>
+                </div>
+            </div>
         </div>
         
-        <div style="left: 127px; top: 84px; position: absolute;">
-            <div style="align-self: stretch; padding: 48px 96px; justify-content: right" class="flex-column">
-                <div style="gap: 60px; display: inline-flex; justify-content: flex-end; align-items: center;">
-                    <div class="flex-column align-end" style="gap: 10px;">
-                        <div class="title-large">Username</div>
-                        <div class="title-medium">Created_at</div>
-                    </div>
-                    <img style="width: 360px; height: 360px; border-radius: 1000px" src="https://placehold.co/360x360" />
-                </div>
-            </div>
-            <div style="width: 1581px; height: 670px; position: relative">
-                <div style="width: 1581px; height: 108px;">
-                    <div class="title-large" style="font-size: 64px;">Username's public areas:</div>
-                </div>
-                <div class="grid-container" style="width: 1581px;">
-                    <div class="card">
-                        <img class="card-image" src="https://placehold.co/277x180" />
-                        <div class="card-content">
-                            <div class="card-title">XXXX XXXXXXX X XXXXX XX XXXXXXX XXX</div>
-                            <div class="card-date">Created at: DD/MM/YYYY</div>
-                        </div>
-                    </div>
-                    <!-- Repeat card structure for other cards -->
-                </div>
-            </div>
+        <div class="footer">
+            <div><span class="footer-text footer-text-bold">did you know?</span><span class="footer-text footer-text-regular"> → TMO kinda looks like a face if you look hard enough.</span></div>
         </div>
     </div>
 </div>
+
+<script src="/js/sidebar.js"></script>
+<script src="/js/icons.js"></script>
 </body>
 
 </html>

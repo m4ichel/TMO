@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS users (
   username VARCHAR(255) UNIQUE NOT NULL,
   email VARCHAR(511) UNIQUE,
   password VARCHAR(255) NOT NULL,
+  profile_image VARCHAR(255),
   created_at TIMESTAMP DEFAULT now()
 );
 
@@ -38,20 +39,22 @@ CREATE TABLE IF NOT EXISTS user_area (
   FOREIGN KEY (area_id) REFERENCES areas(id)
 );
 
--- Create the table for every type an element can be with UUID as primary key (arrow, box, circle, post-it, calendar, etc)
+-- Create the table for every type an element can be with numeric ID as primary key
 CREATE TABLE IF NOT EXISTS element_types (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id INT PRIMARY KEY,
   title VARCHAR(255)
 );
 
 -- Create the tasks table with UUID as primary key
 CREATE TABLE IF NOT EXISTS elements (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  type_id UUID NOT NULL,
+  type_id INT NOT NULL,
   area_id UUID NOT NULL,
   created_at TIMESTAMP DEFAULT now(),
   title VARCHAR(255),
   details VARCHAR(2047),
+  position_x INT DEFAULT 0,
+  position_y INT DEFAULT 0,
   deadline TIMESTAMP DEFAULT NULL,
   finished_at TIMESTAMP,
   FOREIGN KEY (type_id) REFERENCES element_types(id),
@@ -81,15 +84,15 @@ VALUES
   -- Example of shared area
   ((SELECT id FROM users WHERE username = 'alice'), (SELECT id FROM areas WHERE title = 'University'));
 
--- Insert element types
-INSERT INTO element_types (title)
+-- Insert element types with numeric IDs
+INSERT INTO element_types (id, title)
 VALUES
-  ('post-it'),
-  ('arrow'),
-  ('calendar'),
-  ('tier list'),
-  ('box'),
-  ('circle');
+  (0, 'post-it'),
+  (1, 'tier list'),
+  (2, 'calendar'),
+  (3, 'shapes'),
+  (4, 'box'),
+  (5, 'circle');
 
 -- Insert elements into 'Work Projects' area (example)
 INSERT INTO elements (type_id, area_id, title, details, deadline, finished_at)
